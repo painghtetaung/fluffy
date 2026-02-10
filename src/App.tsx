@@ -95,11 +95,10 @@ function App() {
 
         if (human2Ref.current) {
           gsap.to(human2Ref.current, {
-            y: 0,
-            // yoyo: !!(getStage(scrollAmount.current) > 1),
-            // repeat: getStage(scrollAmount.current) > 1 ? -1 : 0,
+            y: 25,
+            yoyo: !!(getStage(scrollAmount.current) < 1),
+            repeat: (getStage(scrollAmount.current) < 1) ? -1 : 0,
             duration: 0.5,
-            // rotation: 0,
             ease: 'power1.inOut',
           })
         }
@@ -108,6 +107,7 @@ function App() {
         const animateToStage1 = () => {
           console.log('🎬 Entering Stage 1: Slight movement')
           if (imageWrapper1.current) {
+            gsap.killTweensOf(imageWrapper1.current)
             gsap.to(imageWrapper1.current, {
               y: 500,
               x: 300,
@@ -116,6 +116,7 @@ function App() {
             })
           }
           if (imageWrapper2.current) {
+            gsap.killTweensOf(imageWrapper2.current)
             gsap.to(imageWrapper2.current, {
               y: 500,
               x: 500,
@@ -124,6 +125,7 @@ function App() {
             })
           }
           if (imageWrapper3.current) {
+            gsap.killTweensOf(imageWrapper3.current)
             gsap.to(imageWrapper3.current, {
               y: 500,
               x: 500,
@@ -132,14 +134,8 @@ function App() {
             })
           }
           if (human2Ref.current) {
+            gsap.killTweensOf(human2Ref.current)
             gsap.to(human2Ref.current, {
-              repeat: -1,
-              yoyo: false,
-            })
-          }
-          if (human2Ref.current) {
-            gsap.to(human2Ref.current, {
-              delay: 0.2,
               rotation: -90,
               y: -200,
               scale: 0.6,
@@ -332,6 +328,7 @@ function App() {
         const animateToStage0 = () => {
           console.log('🔄 Returning to Stage 0: Reset')
           if (imageWrapper1.current) {
+            gsap.killTweensOf(imageWrapper1.current)
             gsap.to(imageWrapper1.current, {
               y: 0,
               x: 0,
@@ -343,6 +340,7 @@ function App() {
             })
           }
           if (imageWrapper2.current) {
+            gsap.killTweensOf(imageWrapper2.current)
             gsap.to(imageWrapper2.current, {
               y: 0,
               x: 0,
@@ -354,6 +352,7 @@ function App() {
             })
           }
           if (imageWrapper3.current) {
+            gsap.killTweensOf(imageWrapper3.current)
             gsap.to(imageWrapper3.current, {
               y: 0,
               x: 0,
@@ -365,12 +364,22 @@ function App() {
             })
           }
           if (human2Ref.current) {
+            gsap.killTweensOf(human2Ref.current)
             gsap.to(human2Ref.current, {
+              y: 25,
               rotation: 0,
               scale: 1,
               opacity: 1,
               duration: 0.8,
               ease: 'power2.out',
+            })
+            gsap.to(human2Ref.current, {
+              yoyo: true,
+              delay: 0.3,
+              repeat: -1,
+              duration: 0.8,
+              y: 10,
+              ease: 'power1.inOut',
             })
           }
         }
