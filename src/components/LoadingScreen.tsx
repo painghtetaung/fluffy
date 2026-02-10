@@ -1,8 +1,14 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
 
-export default function LoadingScreen({ isLoading, setIsLoading }: { isLoading: boolean, setIsLoading: (isLoading: boolean) => void }) {
-  const loadingRef = useRef<HTMLDivElement>(null);
+export default function LoadingScreen({
+  isLoading,
+  setIsLoading,
+}: {
+  isLoading: boolean
+  setIsLoading: (isLoading: boolean) => void
+}) {
+  const loadingRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // Simulate loading time or wait for actual resources
@@ -14,16 +20,16 @@ export default function LoadingScreen({ isLoading, setIsLoading }: { isLoading: 
           duration: 1.2,
           ease: 'power3.inOut',
           onComplete: () => {
-            setIsLoading(false);
+            setIsLoading(false)
           },
-        });
+        })
       }
-    }, 100);
+    }, 100)
 
-    return () => clearTimeout(timer);
-  }, [setIsLoading]);
+    return () => clearTimeout(timer)
+  }, [setIsLoading])
 
-  if (!isLoading) return null;
+  if (!isLoading) return null
 
   return (
     <div
@@ -38,7 +44,7 @@ export default function LoadingScreen({ isLoading, setIsLoading }: { isLoading: 
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#ffffff',
-        zIndex: 9999
+        zIndex: 9999,
       }}
     >
       <img
@@ -47,9 +53,9 @@ export default function LoadingScreen({ isLoading, setIsLoading }: { isLoading: 
         style={{
           maxWidth: '500px',
           width: 'auto',
-          height: 'auto'
+          height: 'auto',
         }}
       />
     </div>
-  );
+  )
 }
