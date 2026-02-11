@@ -75,7 +75,7 @@ export const imagesConfig: ImageConfig[] = [
   {
     id: 'img7',
     src: '/img7.webp',
-    zIndex: 5,
+    zIndex: 8,
     position: { x: -100, y: -150, width: 720, height: 720 },
     bounce: { amount: -10, duration: 0.3, delay: 0 },
     stage1: { x: 200, y: 800, duration: 0.5, delay: 0.3 },
