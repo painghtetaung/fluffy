@@ -190,6 +190,26 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
         })
       })
 
+      bubbleData.forEach((data) => {
+        bubbles.push({
+          img: bubbleImages[data.img],
+          x: data.x + 1200,
+          y: data.y,
+          width: data.w,
+          height: data.w,
+        })
+      })
+
+      bubbleData.forEach((data) => {
+        bubbles.push({
+          img: bubbleImages[data.img],
+          x: data.x + 1200,
+          y: data.y + 1800,
+          width: data.w,
+          height: data.w,
+        })
+      })
+
       return bubbles
     }
 
@@ -324,7 +344,6 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
         ease: stageConfig.transitionEase,
       })
 
-      // Reset and restart vertical bubble animation
       gsap.killTweensOf(animationStateRef.current.bubbles)
       gsap.set(animationStateRef.current.bubbles, { x: 0 })
       gsap.fromTo(
@@ -344,9 +363,11 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
         ease: stageConfig.transitionEase,
       })
 
+      // Delay title appearance to start in the middle of human2's animation
       gsap.to(animationStateRef.current.title, {
         opacity: 1,
         duration: stageConfig.transitionDuration,
+        delay: human2Config.stage1.delay + human2Config.stage1.duration / 2,
         ease: stageConfig.transitionEase,
       })
     }
@@ -388,7 +409,6 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
     }
 
     const animateToStage2 = () => {
-      // Animate human2 to stage 2 position
       if (human2Config.stage2) {
         gsap.to(animationStateRef.current.human2, {
           rotation: human2Config.stage2.rotation || 0,
@@ -401,23 +421,16 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
         })
       }
 
-      // Stop vertical bubble animation and start horizontal
       gsap.killTweensOf(animationStateRef.current.bubbles)
-      gsap.set(animationStateRef.current.bubbles, { y: 0 })
+      gsap.set(animationStateRef.current.bubbles, { y: 0, x: 0 })
 
-      // Animate bubbles horizontally (right to left)
-      gsap.fromTo(
-        animationStateRef.current.bubbles,
-        { x: canvas.width },
-        {
-          x: -canvas.width,
-          duration: bubblesConfig.duration,
-          repeat: -1,
-          ease: 'none',
-        }
-      )
+      gsap.to(animationStateRef.current.bubbles, {
+        x: -1200,
+        duration: bubblesConfig.duration,
+        repeat: -1,
+        ease: 'none',
+      })
 
-      // Hide title in stage 2
       gsap.to(animationStateRef.current.title, {
         opacity: 0,
         duration: stageConfig.transitionDuration,

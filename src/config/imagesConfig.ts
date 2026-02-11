@@ -234,7 +234,7 @@ export const bubblesConfig = {
 
 export const stageConfig = {
   scrollThreshold: 200,
-  stage2Threshold: 2000,
+  stage2Threshold: 1600,
   maxScroll: 3000,
   transitionDuration: 0.8,
   transitionEase: 'power2.out',
