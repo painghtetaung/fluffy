@@ -615,12 +615,50 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
       mousePos.current = { x: e.clientX, y: e.clientY }
     }
 
+    let touchStartY = 0
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault()
+      const touchY = e.touches[0].clientY
+      const deltaY = touchStartY - touchY
+      touchStartY = touchY
+
+      scrollAmount.current += deltaY * 2
+      scrollAmount.current = Math.max(0, Math.min(scrollAmount.current, stageConfig.maxScroll))
+
+      let newStage = 0
+      if (scrollAmount.current >= stageConfig.stage2Threshold) {
+        newStage = 2
+      } else if (scrollAmount.current >= stageConfig.scrollThreshold) {
+        newStage = 1
+      }
+
+      if (newStage !== currentStage.current) {
+        currentStage.current = newStage
+        onStageChange?.(newStage)
+        if (newStage === 0) {
+          animateToStage0()
+        } else if (newStage === 1) {
+          animateToStage1()
+        } else {
+          animateToStage2()
+        }
+      }
+    }
+
     window.addEventListener('wheel', handleWheel, { passive: false })
     window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('touchstart', handleTouchStart, { passive: false })
+    window.addEventListener('touchmove', handleTouchMove, { passive: false })
 
     return () => {
       window.removeEventListener('wheel', handleWheel)
       window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchmove', handleTouchMove)
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
