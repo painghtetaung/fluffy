@@ -41,7 +41,7 @@ export default function LoadingScreen({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#fcf6eb',
         zIndex: 9999,
       }}
     >

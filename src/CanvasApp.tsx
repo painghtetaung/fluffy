@@ -253,7 +253,7 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      ctx.fillStyle = '#ffffff'
+      ctx.fillStyle = '#fcf6eb'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       if (animationStateRef.current.bubbles.opacity > 0) {
@@ -363,7 +363,6 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
         ease: stageConfig.transitionEase,
       })
 
-      // Delay title appearance to start in the middle of human2's animation
       gsap.to(animationStateRef.current.title, {
         opacity: 1,
         duration: stageConfig.transitionDuration,
