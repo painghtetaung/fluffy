@@ -20,6 +20,15 @@ interface Bubble {
   height: number
 }
 
+interface Cat {
+  img: HTMLImageElement
+  x: number
+  y: number
+  width: number
+  height: number
+  rotation: number
+}
+
 interface CanvasAppProps {
   onStageChange?: (stage: number) => void
 }
@@ -30,6 +39,7 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
   const animationFrameRef = useRef<number>(0)
   const scrollAmount = useRef(0)
   const currentStage = useRef(0)
+  const mousePos = useRef({ x: -1000, y: -1000 })
 
   const imagesRef = useRef<{
     img1?: ImageData
@@ -50,13 +60,16 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
     img16?: ImageData
     human2?: ImageData
     bubbles: Bubble[]
+    cats: Cat[]
   }>({
     bubbles: [],
+    cats: [],
   })
 
   const buildAnimationState = () => {
     const state: any = {
       bubbles: { x: 0, y: 0, opacity: 0 },
+      cats: { x: 0, rotation: 0, opacity: 0 },
       title: { opacity: 0 },
     }
     imagesConfig.forEach((config) => {
@@ -105,13 +118,23 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
       loadImage('/bubble1.png'),
       loadImage('/bubble2.png'),
       loadImage('/bubble3.png'),
+      loadImage('/cat.png'),
+      loadImage('/cat2.png'),
+      loadImage('/cat3.png'),
+      loadImage('/cat4.png'),
+      loadImage('/cat5.png'),
+      loadImage('/cat6.png'),
     ]).then((loadedImages) => {
       const centerX = canvas.width / 2
       const centerY = canvas.height / 2
 
-      const bubbleImages = loadedImages.slice(-3) as HTMLImageElement[]
+      const bubbleImages = loadedImages.slice(-9, -6) as HTMLImageElement[]
+      const catImages = loadedImages.slice(-6) as HTMLImageElement[]
 
-      const images: any = { bubbles: generateBubbles(bubbleImages) }
+      const images: any = {
+        bubbles: generateBubbles(bubbleImages),
+        cats: generateCats(catImages),
+      }
 
       imagesConfig.forEach((config, index) => {
         images[config.id] = {
@@ -213,6 +236,54 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
       return bubbles
     }
 
+    function generateCats(catImages: HTMLImageElement[]): Cat[] {
+      const cats: Cat[] = []
+      const catData = [
+        { x: -400, y: 100, w: 120, img: 0, rotation: -15 },
+        { x: -200, y: 250, w: 140, img: 1, rotation: 10 },
+        { x: -500, y: 400, w: 100, img: 2, rotation: -20 },
+        { x: -100, y: 550, w: 130, img: 3, rotation: 15 },
+        { x: -350, y: 700, w: 110, img: 4, rotation: -10 },
+        { x: -250, y: 850, w: 125, img: 5, rotation: 12 },
+        { x: -450, y: 1000, w: 135, img: 0, rotation: -18 },
+        { x: -150, y: 1150, w: 115, img: 1, rotation: 8 },
+        { x: -550, y: 1300, w: 120, img: 2, rotation: -12 },
+        { x: -300, y: 1450, w: 128, img: 3, rotation: 14 },
+        { x: 100, y: 150, w: 125, img: 4, rotation: -16 },
+        { x: 250, y: 320, w: 110, img: 5, rotation: 11 },
+        { x: 50, y: 480, w: 135, img: 0, rotation: -9 },
+        { x: 350, y: 640, w: 120, img: 1, rotation: 13 },
+        { x: 150, y: 800, w: 115, img: 2, rotation: -14 },
+        { x: 300, y: 950, w: 130, img: 3, rotation: 10 },
+        { x: 200, y: 1100, w: 125, img: 4, rotation: -11 },
+        { x: 400, y: 1250, w: 120, img: 5, rotation: 15 },
+      ]
+
+      catData.forEach((data) => {
+        cats.push({
+          img: catImages[data.img],
+          x: data.x,
+          y: data.y,
+          width: data.w,
+          height: data.w,
+          rotation: data.rotation,
+        })
+      })
+
+      catData.forEach((data) => {
+        cats.push({
+          img: catImages[data.img],
+          x: data.x + 1200,
+          y: data.y,
+          width: data.w,
+          height: data.w,
+          rotation: data.rotation,
+        })
+      })
+
+      return cats
+    }
+
     function startAnimation() {
       imagesConfig.forEach((config) => {
         gsap.to(bounceStateRef.current, {
@@ -268,6 +339,38 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
             bubble.width,
             bubble.height
           )
+        })
+        ctx.globalAlpha = 1
+      }
+
+      if (animationStateRef.current.cats.opacity > 0) {
+        ctx.globalAlpha = animationStateRef.current.cats.opacity
+        imagesRef.current.cats.forEach((cat) => {
+          const offsetX = animationStateRef.current.cats.x
+          const baseRotation = animationStateRef.current.cats.rotation
+
+          const catCenterX = canvas.width / 2 + cat.x + offsetX + cat.width / 2
+          const catCenterY = cat.y + cat.height / 2
+
+          const dx = mousePos.current.x - catCenterX
+          const dy = mousePos.current.y - catCenterY
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
+          const maxDistance = 200
+          const maxScale = 1.5
+          let hoverScale = 1
+
+          if (distance < maxDistance) {
+            const proximity = 1 - distance / maxDistance
+            hoverScale = 1 + proximity * (maxScale - 1)
+          }
+
+          ctx.save()
+          ctx.translate(catCenterX, catCenterY)
+          ctx.rotate(((cat.rotation + baseRotation) * Math.PI) / 180)
+          ctx.scale(hoverScale, hoverScale)
+          ctx.drawImage(cat.img, -cat.width / 2, -cat.height / 2, cat.width, cat.height)
+          ctx.restore()
         })
         ctx.globalAlpha = 1
       }
@@ -363,6 +466,12 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
         ease: stageConfig.transitionEase,
       })
 
+      gsap.to(animationStateRef.current.cats, {
+        opacity: 0,
+        duration: stageConfig.transitionDuration,
+        ease: stageConfig.transitionEase,
+      })
+
       gsap.to(animationStateRef.current.title, {
         opacity: 1,
         duration: stageConfig.transitionDuration,
@@ -400,6 +509,12 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
         ease: stageConfig.transitionEase,
       })
 
+      gsap.to(animationStateRef.current.cats, {
+        opacity: 0,
+        duration: stageConfig.transitionDuration,
+        ease: stageConfig.transitionEase,
+      })
+
       gsap.to(animationStateRef.current.title, {
         opacity: 0,
         duration: stageConfig.transitionDuration,
@@ -428,6 +543,29 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
         duration: bubblesConfig.duration,
         repeat: -1,
         ease: 'none',
+      })
+
+      gsap.killTweensOf(animationStateRef.current.cats)
+      gsap.set(animationStateRef.current.cats, { x: 0, rotation: 0 })
+
+      gsap.to(animationStateRef.current.cats, {
+        x: -1200,
+        duration: 15,
+        repeat: -1,
+        ease: 'none',
+      })
+
+      gsap.to(animationStateRef.current.cats, {
+        rotation: 360,
+        duration: 20,
+        repeat: -1,
+        ease: 'none',
+      })
+
+      gsap.to(animationStateRef.current.cats, {
+        opacity: 0.8,
+        duration: stageConfig.transitionDuration,
+        ease: stageConfig.transitionEase,
       })
 
       gsap.to(animationStateRef.current.title, {
@@ -463,10 +601,16 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
       }
     }
 
+    const handleMouseMove = (e: MouseEvent) => {
+      mousePos.current = { x: e.clientX, y: e.clientY }
+    }
+
     window.addEventListener('wheel', handleWheel, { passive: false })
+    window.addEventListener('mousemove', handleMouseMove)
 
     return () => {
       window.removeEventListener('wheel', handleWheel)
+      window.removeEventListener('mousemove', handleMouseMove)
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
