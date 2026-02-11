@@ -35,6 +35,7 @@ interface CanvasAppProps {
 
 function CanvasApp({ onStageChange }: CanvasAppProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const [canvasOpacity, setCanvasOpacity] = useState(0)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationFrameRef = useRef<number>(0)
   const scrollAmount = useRef(0)
@@ -90,6 +91,15 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
 
   const animationStateRef = useRef(buildAnimationState())
   const bounceStateRef = useRef(buildBounceState())
+
+  useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        setCanvasOpacity(1)
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [isLoading])
 
   useEffect(() => {
     if (isLoading) return
@@ -631,6 +641,8 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
             top: 0,
             left: 0,
             zIndex: 20,
+            opacity: canvasOpacity,
+            transition: 'opacity 1.2s ease-out',
           }}
         />
       )}
