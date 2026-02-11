@@ -478,173 +478,173 @@ function App() {
         <div className="absolute top-0 right-0 w-full h-screen -z-[20] overflow-hidden">
           <div ref={bubblesContainerRef} className="absolute top-0 left-0 w-full">
             {/* First set of bubbles */}
-            <div className="absolute top-[5rem] right-[20rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[80px] right-[320px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[10rem] right-[5rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[160px] right-[80px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[20rem] right-[15rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[8rem] h-[8rem] object-contain" />
+            <div className="absolute top-[320px] right-[240px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[128px] h-[128px] object-contain" />
             </div>
-            <div className="absolute top-[30rem] right-[25rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[12rem] h-[12rem] object-contain" />
+            <div className="absolute top-[480px] right-[400px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[192px] h-[192px] object-contain" />
             </div>
-            <div className="absolute top-[40rem] right-[10rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[640px] right-[160px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[50rem] right-[30rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[11rem] h-[11rem] object-contain" />
+            <div className="absolute top-[800px] right-[480px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[176px] h-[176px] object-contain" />
             </div>
-            <div className="absolute top-[60rem] right-[8rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[960px] right-[128px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[70rem] right-[22rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[13rem] h-[13rem] object-contain" />
+            <div className="absolute top-[1120px] right-[352px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[208px] h-[208px] object-contain" />
             </div>
-            <div className="absolute top-[80rem] right-[18rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[7rem] h-[7rem] object-contain" />
+            <div className="absolute top-[1280px] right-[288px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[112px] h-[112px] object-contain" />
             </div>
-            <div className="absolute top-[90rem] right-[12rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[14rem] h-[14rem] object-contain" />
+            <div className="absolute top-[1440px] right-[192px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[224px] h-[224px] object-contain" />
             </div>
-            <div className="absolute top-[100rem] right-[28rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[1600px] right-[448px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[110rem] right-[6rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[11rem] h-[11rem] object-contain" />
+            <div className="absolute top-[1760px] right-[96px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[176px] h-[176px] object-contain" />
             </div>
-            <div className="absolute top-[15rem] right-[35rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[8rem] h-[8rem] object-contain" />
+            <div className="absolute top-[240px] right-[560px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[128px] h-[128px] object-contain" />
             </div>
-            <div className="absolute top-[35rem] right-[3rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[560px] right-[48px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[55rem] right-[40rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[12rem] h-[12rem] object-contain" />
+            <div className="absolute top-[880px] right-[640px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[192px] h-[192px] object-contain" />
             </div>
-            <div className="absolute top-[75rem] right-[32rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[1200px] right-[512px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[95rem] right-[20rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[13rem] h-[13rem] object-contain" />
+            <div className="absolute top-[1520px] right-[320px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[208px] h-[208px] object-contain" />
             </div>
-            <div className="absolute top-[25rem] right-[8rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[7rem] h-[7rem] object-contain" />
+            <div className="absolute top-[400px] right-[128px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[112px] h-[112px] object-contain" />
             </div>
 
             {/* Left side bubbles */}
-            <div className="absolute top-[8rem] left-[5rem]">
-              <img src="/bubble3.png" alt="Bubble" className="w-[11rem] h-[11rem] object-contain" />
+            <div className="absolute top-[128px] left-[80px]">
+              <img src="/bubble3.png" alt="Bubble" className="w-[176px] h-[176px] object-contain" />
             </div>
-            <div className="absolute top-[18rem] left-[15rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[288px] left-[240px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[33rem] left-[8rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[13rem] h-[13rem] object-contain" />
+            <div className="absolute top-[528px] left-[128px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[208px] h-[208px] object-contain" />
             </div>
-            <div className="absolute top-[45rem] left-[20rem]">
-              <img src="/bubble3.png" alt="Bubble" className="w-[8rem] h-[8rem] object-contain" />
+            <div className="absolute top-[720px] left-[320px]">
+              <img src="/bubble3.png" alt="Bubble" className="w-[128px] h-[128px] object-contain" />
             </div>
-            <div className="absolute top-[58rem] left-[3rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[928px] left-[48px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[68rem] left-[12rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[12rem] h-[12rem] object-contain" />
+            <div className="absolute top-[1088px] left-[192px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[192px] h-[192px] object-contain" />
             </div>
-            <div className="absolute top-[82rem] left-[25rem]">
-              <img src="/bubble3.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[1312px] left-[400px]">
+              <img src="/bubble3.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[93rem] left-[6rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[14rem] h-[14rem] object-contain" />
+            <div className="absolute top-[1488px] left-[96px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[224px] h-[224px] object-contain" />
             </div>
-            <div className="absolute top-[105rem] left-[18rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[1680px] left-[288px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
 
             {/* Duplicate set of bubbles offset by 1800px (112.5rem) for seamless loop */}
-            <div className="absolute top-[117.5rem] right-[20rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[1880px] right-[320px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[122.5rem] right-[5rem]">
-              <img src="/bubble3.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[1960px] right-[80px]">
+              <img src="/bubble3.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[132.5rem] right-[15rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[8rem] h-[8rem] object-contain" />
+            <div className="absolute top-[2120px] right-[240px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[128px] h-[128px] object-contain" />
             </div>
-            <div className="absolute top-[142.5rem] right-[25rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[12rem] h-[12rem] object-contain" />
+            <div className="absolute top-[2280px] right-[400px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[192px] h-[192px] object-contain" />
             </div>
-            <div className="absolute top-[152.5rem] right-[10rem]">
-              <img src="/bubble3.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[2440px] right-[160px]">
+              <img src="/bubble3.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[162.5rem] right-[30rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[11rem] h-[11rem] object-contain" />
+            <div className="absolute top-[2600px] right-[480px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[176px] h-[176px] object-contain" />
             </div>
-            <div className="absolute top-[172.5rem] right-[8rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[2760px] right-[128px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[182.5rem] right-[22rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[13rem] h-[13rem] object-contain" />
+            <div className="absolute top-[2920px] right-[352px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[208px] h-[208px] object-contain" />
             </div>
-            <div className="absolute top-[192.5rem] right-[18rem]">
-              <img src="/bubble3.png" alt="Bubble" className="w-[7rem] h-[7rem] object-contain" />
+            <div className="absolute top-[3080px] right-[288px]">
+              <img src="/bubble3.png" alt="Bubble" className="w-[112px] h-[112px] object-contain" />
             </div>
-            <div className="absolute top-[202.5rem] right-[12rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[14rem] h-[14rem] object-contain" />
+            <div className="absolute top-[3240px] right-[192px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[224px] h-[224px] object-contain" />
             </div>
-            <div className="absolute top-[212.5rem] right-[28rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[3400px] right-[448px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[222.5rem] right-[6rem]">
-              <img src="/bubble3.png" alt="Bubble" className="w-[11rem] h-[11rem] object-contain" />
+            <div className="absolute top-[3560px] right-[96px]">
+              <img src="/bubble3.png" alt="Bubble" className="w-[176px] h-[176px] object-contain" />
             </div>
-            <div className="absolute top-[127.5rem] right-[35rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[8rem] h-[8rem] object-contain" />
+            <div className="absolute top-[2040px] right-[560px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[128px] h-[128px] object-contain" />
             </div>
-            <div className="absolute top-[147.5rem] right-[3rem]">
-              <img src="/bubble3.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[2360px] right-[48px]">
+              <img src="/bubble3.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[167.5rem] right-[40rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[12rem] h-[12rem] object-contain" />
+            <div className="absolute top-[2680px] right-[640px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[192px] h-[192px] object-contain" />
             </div>
-            <div className="absolute top-[187.5rem] right-[32rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[3000px] right-[512px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[207.5rem] right-[20rem]">
-              <img src="/bubble3.png" alt="Bubble" className="w-[13rem] h-[13rem] object-contain" />
+            <div className="absolute top-[3320px] right-[320px]">
+              <img src="/bubble3.png" alt="Bubble" className="w-[208px] h-[208px] object-contain" />
             </div>
-            <div className="absolute top-[137.5rem] right-[8rem]">
-              <img src="/bubble2.png" alt="Bubble" className="w-[7rem] h-[7rem] object-contain" />
+            <div className="absolute top-[2200px] right-[128px]">
+              <img src="/bubble2.png" alt="Bubble" className="w-[112px] h-[112px] object-contain" />
             </div>
 
             {/* Duplicate left side bubbles */}
-            <div className="absolute top-[120.5rem] left-[5rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[11rem] h-[11rem] object-contain" />
+            <div className="absolute top-[1928px] left-[80px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[176px] h-[176px] object-contain" />
             </div>
-            <div className="absolute top-[130.5rem] left-[15rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[2088px] left-[240px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[145.5rem] left-[8rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[13rem] h-[13rem] object-contain" />
+            <div className="absolute top-[2328px] left-[128px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[208px] h-[208px] object-contain" />
             </div>
-            <div className="absolute top-[157.5rem] left-[20rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[8rem] h-[8rem] object-contain" />
+            <div className="absolute top-[2520px] left-[320px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[128px] h-[128px] object-contain" />
             </div>
-            <div className="absolute top-[170.5rem] left-[3rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[2728px] left-[48px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
-            <div className="absolute top-[180.5rem] left-[12rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[12rem] h-[12rem] object-contain" />
+            <div className="absolute top-[2888px] left-[192px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[192px] h-[192px] object-contain" />
             </div>
-            <div className="absolute top-[194.5rem] left-[25rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[9rem] h-[9rem] object-contain" />
+            <div className="absolute top-[3112px] left-[400px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[144px] h-[144px] object-contain" />
             </div>
-            <div className="absolute top-[205.5rem] left-[6rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[14rem] h-[14rem] object-contain" />
+            <div className="absolute top-[3288px] left-[96px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[224px] h-[224px] object-contain" />
             </div>
-            <div className="absolute top-[217.5rem] left-[18rem]">
-              <img src="/bubble1.png" alt="Bubble" className="w-[10rem] h-[10rem] object-contain" />
+            <div className="absolute top-[3480px] left-[288px]">
+              <img src="/bubble1.png" alt="Bubble" className="w-[160px] h-[160px] object-contain" />
             </div>
           </div>
         </div>
@@ -652,7 +652,7 @@ function App() {
       <main className="w-full h-screen bg-white flex items-center justify-center">
         {!isLoading && (
           <div ref={contentRef} className="text-center relative w-full h-full">
-            <div ref={human2Ref} className="absolute h-fit top-[5rem] right-[-230px]">
+            <div ref={human2Ref} className="absolute h-fit top-[80px] right-[-230px]">
               <img
                 src="/human-2.webp"
                 alt="Human character"
@@ -665,7 +665,7 @@ function App() {
               />
             </div>
             <div className="absolute top-0 left-0" ref={image123ContainerRef}>
-              <div ref={imageWrapper1} className="z-[40] absolute top-[20rem] left-0">
+              <div ref={imageWrapper1} className="z-[40] absolute top-[320px] left-0">
                 <img
                   ref={imageRef1}
                   src="/img1.webp"
@@ -677,7 +677,7 @@ function App() {
                   }}
                 />
               </div>
-              <div ref={imageWrapper2} className="absolute top-[25rem] left-[200px] z-30">
+              <div ref={imageWrapper2} className="absolute top-[400px] left-[200px] z-30">
                 <img
                   ref={imageRef2}
                   src="/img2.webp"
