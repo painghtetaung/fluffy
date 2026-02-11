@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import LoadingScreen from './components/LoadingScreen'
+import { imagesConfig, human2Config, bubblesConfig, stageConfig } from './config/imagesConfig'
 
 interface ImageData {
   img: HTMLImageElement
@@ -26,7 +27,6 @@ function CanvasApp() {
   const scrollAmount = useRef(0)
   const currentStage = useRef(0)
 
-  // Image refs
   const imagesRef = useRef<{
     img1?: ImageData
     img2?: ImageData
@@ -36,36 +36,42 @@ function CanvasApp() {
     img6?: ImageData
     img7?: ImageData
     img8?: ImageData
+    img9?: ImageData
+    img10?: ImageData
+    img11?: ImageData
+    img12?: ImageData
+    img13?: ImageData
+    img14?: ImageData
+    img15?: ImageData
+    img16?: ImageData
     human2?: ImageData
     bubbles: Bubble[]
   }>({
     bubbles: [],
   })
 
-  const animationStateRef = useRef({
-    img1: { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-    img2: { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-    img3: { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-    img4: { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-    img5: { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-    img6: { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-    img7: { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-    img8: { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-    human2: { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-    bubbles: { y: 0, opacity: 0 },
-  })
+  const buildAnimationState = () => {
+    const state: any = {
+      bubbles: { y: 0, opacity: 0 },
+    }
+    imagesConfig.forEach((config) => {
+      state[config.id] = { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 }
+    })
+    state.human2 = { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 }
+    return state
+  }
 
-  const bounceStateRef = useRef({
-    img1: 0,
-    img2: 0,
-    img3: 0,
-    img4: 0,
-    img5: 0,
-    img6: 0,
-    img7: 0,
-    img8: 0,
-    human2: 0,
-  })
+  const buildBounceState = () => {
+    const state: any = {}
+    imagesConfig.forEach((config) => {
+      state[config.id] = 0
+    })
+    state.human2 = 0
+    return state
+  }
+
+  const animationStateRef = useRef(buildAnimationState())
+  const bounceStateRef = useRef(buildBounceState())
 
   useEffect(() => {
     if (isLoading) return
@@ -76,11 +82,9 @@ function CanvasApp() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Set canvas size
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
-    // Load images
     const loadImage = (src: string): Promise<HTMLImageElement> => {
       return new Promise((resolve, reject) => {
         const img = new Image()
@@ -91,102 +95,43 @@ function CanvasApp() {
     }
 
     Promise.all([
-      loadImage('/img1.webp'),
-      loadImage('/img2.webp'),
-      loadImage('/img3.webp'),
-      loadImage('/img4.webp'),
-      loadImage('/img5.webp'),
-      loadImage('/img6.webp'),
-      loadImage('/img7.webp'),
-      loadImage('/img8.webp'),
-      loadImage('/human-2.webp'),
+      ...imagesConfig.map((config) => loadImage(config.src)),
+      loadImage(human2Config.src),
       loadImage('/bubble1.png'),
       loadImage('/bubble2.png'),
       loadImage('/bubble3.png'),
-    ]).then(
-      ([img1, img2, img3, img4, img5, img6, img7, img8, human2, bubble1, bubble2, bubble3]) => {
-        const centerX = canvas.width / 2
-        const centerY = canvas.height / 2
+    ]).then((loadedImages) => {
+      const centerX = canvas.width / 2
+      const centerY = canvas.height / 2
 
-        imagesRef.current = {
-          img1: {
-            img: img1,
-            x: centerX + 230,
-            y: centerY - 150,
-            width: 720,
-            height: 720,
-            loaded: true,
-          },
-          img2: {
-            img: img2,
-            x: centerX + 100,
-            y: centerY - 250,
-            width: 720,
-            height: 720,
-            loaded: true,
-          },
-          img3: {
-            img: img3,
-            x: centerX - 100,
-            y: centerY - 150,
-            width: 720,
-            height: 720,
-            loaded: true,
-          },
-          img4: {
-            img: img4,
-            x: centerX + 300,
-            y: centerY - 350,
-            width: 720,
-            height: 720,
-            loaded: true,
-          },
-          img5: {
-            img: img5,
-            x: centerX + 200,
-            y: centerY - 700,
-            width: 700,
-            height: 700,
-            loaded: true,
-          },
-          img6: {
-            img: img6,
-            x: centerX + 100,
-            y: centerY - 500,
-            width: 720,
-            height: 720,
-            loaded: true,
-          },
-          img7: {
-            img: img7,
-            x: centerX - 100,
-            y: centerY - 150,
-            width: 720,
-            height: 720,
-            loaded: true,
-          },
-          img8: {
-            img: img8,
-            x: centerX - 100,
-            y: centerY - 600,
-            width: 700,
-            height: 700,
-            loaded: true,
-          },
-          human2: {
-            img: human2,
-            x: centerX - 270,
-            y: centerY - 240,
-            width: 600,
-            height: 1150,
-            loaded: true,
-          },
-          bubbles: generateBubbles([bubble1, bubble2, bubble3]),
+      const bubbleImages = loadedImages.slice(-3) as HTMLImageElement[]
+
+      const images: any = { bubbles: generateBubbles(bubbleImages) }
+
+      imagesConfig.forEach((config, index) => {
+        images[config.id] = {
+          img: loadedImages[index],
+          x: centerX + config.position.x,
+          y: centerY + config.position.y,
+          width: config.position.width,
+          height: config.position.height,
+          loaded: true,
         }
+      })
 
-        startAnimation()
+      images.human2 = {
+        img: loadedImages[imagesConfig.length],
+        x: centerX + human2Config.position.x,
+        y: centerY + human2Config.position.y,
+        width: human2Config.position.width,
+        height: human2Config.position.height,
+        loaded: true,
       }
-    )
+
+      imagesRef.current = images
+
+      startAnimation()
+    })
 
     function generateBubbles(bubbleImages: HTMLImageElement[]): Bubble[] {
       const bubbles: Bubble[] = []
@@ -230,7 +175,6 @@ function CanvasApp() {
         })
       })
 
-      // Duplicate for seamless loop (offset by 1800px)
       bubbleData.forEach((data) => {
         bubbles.push({
           img: bubbleImages[data.img],
@@ -245,90 +189,32 @@ function CanvasApp() {
     }
 
     function startAnimation() {
-      // Start bounce animations with GSAP
-
-      gsap.to(bounceStateRef.current, {
-        img7: -10,
-        duration: 0.3,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-      })
-      gsap.to(bounceStateRef.current, {
-        img8: -10,
-        duration: 0.3,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-      })
-      gsap.to(bounceStateRef.current, {
-        img6: -10,
-        duration: 0.6,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
+      imagesConfig.forEach((config) => {
+        gsap.to(bounceStateRef.current, {
+          [config.id]: config.bounce.amount,
+          duration: config.bounce.duration,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+          delay: config.bounce.delay,
+        })
       })
 
       gsap.to(bounceStateRef.current, {
-        img1: -10,
-        duration: 0.6,
+        human2: human2Config.bounce.amount,
+        duration: human2Config.bounce.duration,
         repeat: -1,
         yoyo: true,
         ease: 'power1.inOut',
+        delay: human2Config.bounce.delay,
       })
 
-      gsap.to(bounceStateRef.current, {
-        img2: -25,
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        delay: 0.2,
-      })
-
-      gsap.to(bounceStateRef.current, {
-        img3: -25,
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        delay: 0.4,
-      })
-
-      gsap.to(bounceStateRef.current, {
-        img5: -25,
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        delay: 0.7,
-      })
-
-      gsap.to(bounceStateRef.current, {
-        img4: -25,
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        delay: 0.6,
-      })
-
-      gsap.to(bounceStateRef.current, {
-        human2: 25,
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-      })
-
-      // Bubble animation
-      const bubbleHeight = 1800
       gsap.fromTo(
         animationStateRef.current.bubbles,
         { y: 0 },
         {
-          y: -bubbleHeight,
-          duration: 12,
+          y: -bubblesConfig.animationHeight,
+          duration: bubblesConfig.duration,
           repeat: -1,
           ease: 'none',
         }
@@ -342,13 +228,11 @@ function CanvasApp() {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Draw white background
       ctx.fillStyle = '#ffffff'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Draw bubbles (when visible) - behind characters
       if (animationStateRef.current.bubbles.opacity > 0) {
-        ctx.globalAlpha = animationStateRef.current.bubbles.opacity * 0.5
+        ctx.globalAlpha = animationStateRef.current.bubbles.opacity
         imagesRef.current.bubbles.forEach((bubble) => {
           const offsetY = animationStateRef.current.bubbles.y
           ctx.drawImage(
@@ -362,313 +246,108 @@ function CanvasApp() {
         ctx.globalAlpha = 1
       }
 
-      // Draw character images - on top of everything
+      const drawables = [
+        ...imagesConfig.map((config) => ({ ...config, isHuman2: false })),
+        { ...human2Config, isHuman2: true },
+      ].sort((a, b) => a.zIndex - b.zIndex)
 
-      // Draw img8
-      if (imagesRef.current.img8) {
-        const base = imagesRef.current.img8
-        const state = animationStateRef.current.img8
-        const bounce = bounceStateRef.current.img8
+      drawables.forEach((item) => {
+        const imageData = imagesRef.current[item.id as keyof typeof imagesRef.current] as
+          | ImageData
+          | undefined
+        if (!imageData) return
+
+        const state = animationStateRef.current[
+          item.id as keyof typeof animationStateRef.current
+        ] as {
+          x: number
+          y: number
+          rotation: number
+          scale: number
+          opacity: number
+        }
+        const bounce = bounceStateRef.current[
+          item.id as keyof typeof bounceStateRef.current
+        ] as number
+
         ctx.save()
         ctx.globalAlpha = state.opacity
-        ctx.translate(base.x + state.x, base.y + state.y + bounce)
+        ctx.translate(imageData.x + state.x, imageData.y + state.y + bounce)
         ctx.rotate((state.rotation * Math.PI) / 180)
         ctx.scale(state.scale, state.scale)
-        ctx.drawImage(base.img, 0, 0, base.width, base.height)
+        ctx.drawImage(imageData.img, 0, 0, imageData.width, imageData.height)
         ctx.restore()
-      }
-
-      // Draw img3
-      if (imagesRef.current.img3) {
-        const base = imagesRef.current.img3
-        const state = animationStateRef.current.img3
-        const bounce = bounceStateRef.current.img3
-        ctx.save()
-        ctx.globalAlpha = state.opacity
-        ctx.translate(base.x + state.x, base.y + state.y + bounce)
-        ctx.rotate((state.rotation * Math.PI) / 180)
-        ctx.scale(state.scale, state.scale)
-        ctx.drawImage(base.img, 0, 0, base.width, base.height)
-        ctx.restore()
-      }
-
-      // Draw human2
-      if (imagesRef.current.human2) {
-        const base = imagesRef.current.human2
-        const state = animationStateRef.current.human2
-        const bounce = bounceStateRef.current.human2
-        ctx.save()
-        ctx.globalAlpha = state.opacity
-        ctx.translate(base.x + state.x, base.y + state.y + bounce)
-        ctx.rotate((state.rotation * Math.PI) / 180)
-        ctx.scale(state.scale, state.scale)
-        ctx.drawImage(base.img, 0, 0, base.width, base.height)
-        ctx.restore()
-      }
-
-      // Draw img5
-      if (imagesRef.current.img5) {
-        const base = imagesRef.current.img5
-        const state = animationStateRef.current.img5
-        const bounce = bounceStateRef.current.img5
-        ctx.save()
-        ctx.globalAlpha = state.opacity
-        ctx.translate(base.x + state.x, base.y + state.y + bounce)
-        ctx.rotate((state.rotation * Math.PI) / 180)
-        ctx.scale(state.scale, state.scale)
-        ctx.drawImage(base.img, 0, 0, base.width, base.height)
-        ctx.restore()
-      }
-
-      // Draw img4
-
-      if (imagesRef.current.img4) {
-        const base = imagesRef.current.img4
-        const state = animationStateRef.current.img4
-        const bounce = bounceStateRef.current.img4
-        ctx.save()
-        ctx.globalAlpha = state.opacity
-        ctx.translate(base.x + state.x, base.y + state.y + bounce)
-        ctx.rotate((state.rotation * Math.PI) / 180)
-        ctx.scale(state.scale, state.scale)
-        ctx.drawImage(base.img, 0, 0, base.width, base.height)
-        ctx.restore()
-      }
-
-      // Draw img6
-      if (imagesRef.current.img6) {
-        const base = imagesRef.current.img6
-        const state = animationStateRef.current.img6
-        const bounce = bounceStateRef.current.img6
-        ctx.save()
-        ctx.globalAlpha = state.opacity
-        ctx.translate(base.x + state.x, base.y + state.y + bounce)
-        ctx.rotate((state.rotation * Math.PI) / 180)
-        ctx.scale(state.scale, state.scale)
-        ctx.drawImage(base.img, 0, 0, base.width, base.height)
-        ctx.restore()
-      }
-
-      // Draw img1
-      if (imagesRef.current.img1) {
-        const base = imagesRef.current.img1
-        const state = animationStateRef.current.img1
-        const bounce = bounceStateRef.current.img1
-        ctx.save()
-        ctx.globalAlpha = state.opacity
-        ctx.translate(base.x + state.x, base.y + state.y + bounce)
-        ctx.rotate((state.rotation * Math.PI) / 180)
-        ctx.scale(state.scale, state.scale)
-        ctx.drawImage(base.img, 0, 0, base.width, base.height)
-        ctx.restore()
-      }
-
-      // Draw img2
-      if (imagesRef.current.img2) {
-        const base = imagesRef.current.img2
-        const state = animationStateRef.current.img2
-        const bounce = bounceStateRef.current.img2
-        ctx.save()
-        ctx.globalAlpha = state.opacity
-        ctx.translate(base.x + state.x, base.y + state.y + bounce)
-        ctx.rotate((state.rotation * Math.PI) / 180)
-        ctx.scale(state.scale, state.scale)
-        ctx.drawImage(base.img, 0, 0, base.width, base.height)
-        ctx.restore()
-      }
-
-      // Draw img7
-      if (imagesRef.current.img7) {
-        const base = imagesRef.current.img7
-        const state = animationStateRef.current.img7
-        const bounce = bounceStateRef.current.img7
-        ctx.save()
-        ctx.globalAlpha = state.opacity
-        ctx.translate(base.x + state.x, base.y + state.y + bounce)
-        ctx.rotate((state.rotation * Math.PI) / 180)
-        ctx.scale(state.scale, state.scale)
-        ctx.drawImage(base.img, 0, 0, base.width, base.height)
-        ctx.restore()
-      }
+      })
 
       animationFrameRef.current = requestAnimationFrame(render)
     }
 
-    // Stage animation functions
     const animateToStage1 = () => {
-      console.log('🎬 Entering Stage 1')
-      gsap.to(animationStateRef.current.img7, {
-        y: 800,
-        x: 200,
-        duration: 0.5,
-        delay: 0.3,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img8, {
-        y: 1200,
-        x: 200,
-        duration: 0.5,
-        delay: 0.3,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img6, {
-        y: 800,
-        x: 200,
-        duration: 0.5,
-        delay: 0.3,
-        ease: 'power2.out',
+      imagesConfig.forEach((config) => {
+        gsap.to(animationStateRef.current[config.id as keyof typeof animationStateRef.current], {
+          x: config.stage1.x,
+          y: config.stage1.y,
+          duration: config.stage1.duration,
+          delay: config.stage1.delay,
+          rotation: config.stage1.rotation || 0,
+          scale: config.stage1.scale || 1,
+          ease: stageConfig.transitionEase,
+        })
       })
 
-      gsap.to(animationStateRef.current.img5, {
-        y: 600,
-        x: 400,
-        duration: 0.5,
-        delay: 0.3,
-        ease: 'power2.out',
-      })
-
-      gsap.to(animationStateRef.current.img4, {
-        y: 500,
-        x: 300,
-        duration: 0.5,
-        delay: 0.3,
-        ease: 'power2.out',
-      })
-
-      gsap.to(animationStateRef.current.img1, {
-        y: 500,
-        x: 300,
-        duration: 0.5,
-        delay: 0.3,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img2, {
-        y: 500,
-        x: 500,
-        delay: 0.4,
-        duration: 0.4,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img3, {
-        y: 500,
-        x: 500,
-        duration: 0.4,
-        delay: 0.4,
-        ease: 'power2.out',
-      })
       gsap.to(animationStateRef.current.human2, {
-        rotation: -90,
-        y: 450,
-        scale: 0.5,
-        duration: 0.8,
-        ease: 'power2.out',
+        rotation: human2Config.stage1.rotation || 0,
+        y: human2Config.stage1.y,
+        x: human2Config.stage1.x,
+        scale: human2Config.stage1.scale || 1,
+        duration: human2Config.stage1.duration,
+        ease: stageConfig.transitionEase,
       })
+
       gsap.to(animationStateRef.current.bubbles, {
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power2.out',
+        opacity: bubblesConfig.opacity,
+        duration: stageConfig.transitionDuration,
+        ease: stageConfig.transitionEase,
       })
     }
 
     const animateToStage0 = () => {
-      console.log('🔄 Returning to Stage 0')
+      imagesConfig.forEach((config) => {
+        gsap.to(animationStateRef.current[config.id as keyof typeof animationStateRef.current], {
+          y: 0,
+          x: 0,
+          opacity: 1,
+          rotation: 0,
+          scale: 1,
+          duration: stageConfig.transitionDuration,
+          ease: stageConfig.transitionEase,
+        })
+      })
 
-      gsap.to(animationStateRef.current.img6, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        rotation: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img7, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        rotation: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img8, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        rotation: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img5, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        rotation: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img4, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        rotation: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img1, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        rotation: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img2, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        rotation: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-      })
-      gsap.to(animationStateRef.current.img3, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        rotation: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-      })
       gsap.to(animationStateRef.current.human2, {
         y: 0,
         x: 0,
         rotation: 0,
         scale: 1,
         opacity: 1,
-        duration: 0.8,
-        ease: 'power2.out',
+        duration: stageConfig.transitionDuration,
+        ease: stageConfig.transitionEase,
       })
+
       gsap.to(animationStateRef.current.bubbles, {
         opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out',
+        duration: stageConfig.transitionDuration,
+        ease: stageConfig.transitionEase,
       })
     }
 
-    // Wheel event handler
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault()
 
       scrollAmount.current += e.deltaY * 0.5
-      scrollAmount.current = Math.max(0, Math.min(scrollAmount.current, 1600))
+      scrollAmount.current = Math.max(0, Math.min(scrollAmount.current, stageConfig.maxScroll))
 
-      const newStage = scrollAmount.current < 200 ? 0 : 1
+      const newStage = scrollAmount.current < stageConfig.scrollThreshold ? 0 : 1
 
       if (newStage !== currentStage.current) {
         currentStage.current = newStage

@@ -11,9 +11,7 @@ export default function LoadingScreen({
   const loadingRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Simulate loading time or wait for actual resources
     const timer = setTimeout(() => {
-      // Animate out the loading screen
       if (loadingRef.current) {
         gsap.to(loadingRef.current, {
           opacity: 0,
