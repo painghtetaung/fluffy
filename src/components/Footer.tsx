@@ -1,15 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 h-32 overflow-hidden">
-      {/* <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: 'url(/footer-bg.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      /> */}
-
+    <footer className="fixed bottom-0 left-0 right-0 h-32 overflow-hidden z-50">
       <div className="relative h-full flex items-center justify-between px-8">
         <div className="flex gap-4">
           <a
