@@ -249,14 +249,14 @@ function CanvasApp() {
 
       gsap.to(bounceStateRef.current, {
         img7: -10,
-        duration: 0.6,
+        duration: 0.3,
         repeat: -1,
         yoyo: true,
         ease: 'power1.inOut',
       })
       gsap.to(bounceStateRef.current, {
         img8: -10,
-        duration: 0.6,
+        duration: 0.3,
         repeat: -1,
         yoyo: true,
         ease: 'power1.inOut',
