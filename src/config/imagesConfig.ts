@@ -205,6 +205,7 @@ export const human2Config = {
     y: 450,
     scale: 0.5,
     duration: 0.8,
+    delay: 0.5,
     x: 0
   },
 }

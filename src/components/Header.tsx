@@ -1,4 +1,8 @@
-const Header = () => {
+interface HeaderProps {
+  currentStage: number
+}
+
+const Header = ({ currentStage }: HeaderProps) => {
   return (
     <header className="fixed top-0 left-0 right-0 h-32 overflow-hidden z-50">
       <div
@@ -11,7 +15,10 @@ const Header = () => {
       />
 
       <div className="relative h-full flex items-center px-8">
-        <h1 className="text-7xl! font-black text-[#203D99] tracking-wide">
+        <h1
+          className="text-[4.5rem]! font-black text-[#203D99] tracking-wide transition-opacity duration-800"
+          style={{ opacity: currentStage === 0 ? 1 : 0 }}
+        >
           Fluffy HüGs
         </h1>
       </div>

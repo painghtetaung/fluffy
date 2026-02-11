@@ -51,7 +51,7 @@ const Footer = () => {
             preserveAspectRatio="xMaxYMax"
             data-open_viewmore="false"
             data-fade="index"
-            class="h-full w-full"
+            className="h-full w-full"
           >
             <path
               fill="#203D99"

@@ -20,7 +20,11 @@ interface Bubble {
   height: number
 }
 
-function CanvasApp() {
+interface CanvasAppProps {
+  onStageChange?: (stage: number) => void
+}
+
+function CanvasApp({ onStageChange }: CanvasAppProps) {
   const [isLoading, setIsLoading] = useState(true)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationFrameRef = useRef<number>(0)
@@ -53,6 +57,7 @@ function CanvasApp() {
   const buildAnimationState = () => {
     const state: any = {
       bubbles: { y: 0, opacity: 0 },
+      title: { opacity: 0 },
     }
     imagesConfig.forEach((config) => {
       state[config.id] = { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 }
@@ -251,7 +256,20 @@ function CanvasApp() {
         { ...human2Config, isHuman2: true },
       ].sort((a, b) => a.zIndex - b.zIndex)
 
+      let titleDrawn = false
+
       drawables.forEach((item) => {
+        if (!titleDrawn && item.zIndex >= 3 && animationStateRef.current.title.opacity > 0) {
+          ctx.save()
+          ctx.globalAlpha = animationStateRef.current.title.opacity
+          ctx.font = '900 220px sans-serif'
+          ctx.fillStyle = '#203D99'
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText('Fluffy HüGs', canvas.width / 2, canvas.height / 2)
+          ctx.restore()
+          titleDrawn = true
+        }
         const imageData = imagesRef.current[item.id as keyof typeof imagesRef.current] as
           | ImageData
           | undefined
@@ -301,11 +319,18 @@ function CanvasApp() {
         x: human2Config.stage1.x,
         scale: human2Config.stage1.scale || 1,
         duration: human2Config.stage1.duration,
+        delay: human2Config.stage1.delay,
         ease: stageConfig.transitionEase,
       })
 
       gsap.to(animationStateRef.current.bubbles, {
         opacity: bubblesConfig.opacity,
+        duration: stageConfig.transitionDuration,
+        ease: stageConfig.transitionEase,
+      })
+
+      gsap.to(animationStateRef.current.title, {
+        opacity: 1,
         duration: stageConfig.transitionDuration,
         ease: stageConfig.transitionEase,
       })
@@ -339,6 +364,12 @@ function CanvasApp() {
         duration: stageConfig.transitionDuration,
         ease: stageConfig.transitionEase,
       })
+
+      gsap.to(animationStateRef.current.title, {
+        opacity: 0,
+        duration: stageConfig.transitionDuration,
+        ease: stageConfig.transitionEase,
+      })
     }
 
     const handleWheel = (e: WheelEvent) => {
@@ -351,6 +382,7 @@ function CanvasApp() {
 
       if (newStage !== currentStage.current) {
         currentStage.current = newStage
+        onStageChange?.(newStage)
         if (newStage === 0) {
           animateToStage0()
         } else {
@@ -367,7 +399,7 @@ function CanvasApp() {
         cancelAnimationFrame(animationFrameRef.current)
       }
     }
-  }, [isLoading])
+  }, [isLoading, onStageChange])
 
   return (
     <>
@@ -382,6 +414,7 @@ function CanvasApp() {
             position: 'fixed',
             top: 0,
             left: 0,
+            zIndex: 20,
           }}
         />
       )}
