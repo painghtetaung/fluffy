@@ -17,7 +17,7 @@ const Header = ({ currentStage }: HeaderProps) => {
       <div className="relative h-full flex items-center px-8">
         <h1
           className="text-[4.5rem]! font-black text-[#203D99] tracking-wide transition-opacity duration-800"
-          style={{ opacity: currentStage === 0 ? 1 : 0 }}
+          style={{ opacity: currentStage === 0 || currentStage === 2 ? 1 : 0 }}
         >
           Fluffy HüGs
         </h1>
