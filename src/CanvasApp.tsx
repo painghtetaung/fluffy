@@ -22,7 +22,7 @@ interface Bubble {
 function CanvasApp() {
   const [isLoading, setIsLoading] = useState(true)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationFrameRef = useRef<number>()
+  const animationFrameRef = useRef<number>(0)
   const scrollAmount = useRef(0)
   const currentStage = useRef(0)
 
@@ -64,9 +64,6 @@ function CanvasApp() {
     // Set canvas size
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
-
-    const CANVAS_WIDTH = 1920
-    const CANVAS_HEIGHT = 1080
 
     // Load images
     const loadImage = (src: string): Promise<HTMLImageElement> => {
