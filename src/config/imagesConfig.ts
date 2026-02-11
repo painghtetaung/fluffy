@@ -21,6 +21,14 @@ export interface ImageConfig {
     rotation?: number
     scale?: number
   }
+  stage2?: {
+    x: number
+    y: number
+    duration: number
+    delay: number
+    rotation?: number
+    scale?: number
+  }
 }
 
 export const imagesConfig: ImageConfig[] = [
@@ -208,6 +216,14 @@ export const human2Config = {
     delay: 0.5,
     x: 0
   },
+  stage2: {
+    rotation: 0,
+    y: 0,
+    scale: 1,
+    duration: 0.8,
+    delay: 0,
+    x: -500
+  },
 }
 
 export const bubblesConfig = {
@@ -218,7 +234,8 @@ export const bubblesConfig = {
 
 export const stageConfig = {
   scrollThreshold: 200,
-  maxScroll: 1600,
+  stage2Threshold: 2000,
+  maxScroll: 3000,
   transitionDuration: 0.8,
   transitionEase: 'power2.out',
 }

@@ -56,7 +56,7 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
 
   const buildAnimationState = () => {
     const state: any = {
-      bubbles: { y: 0, opacity: 0 },
+      bubbles: { x: 0, y: 0, opacity: 0 },
       title: { opacity: 0 },
     }
     imagesConfig.forEach((config) => {
@@ -239,10 +239,11 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
       if (animationStateRef.current.bubbles.opacity > 0) {
         ctx.globalAlpha = animationStateRef.current.bubbles.opacity
         imagesRef.current.bubbles.forEach((bubble) => {
+          const offsetX = animationStateRef.current.bubbles.x
           const offsetY = animationStateRef.current.bubbles.y
           ctx.drawImage(
             bubble.img,
-            canvas.width / 2 + bubble.x,
+            canvas.width / 2 + bubble.x + offsetX,
             bubble.y + offsetY,
             bubble.width,
             bubble.height
@@ -323,6 +324,20 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
         ease: stageConfig.transitionEase,
       })
 
+      // Reset and restart vertical bubble animation
+      gsap.killTweensOf(animationStateRef.current.bubbles)
+      gsap.set(animationStateRef.current.bubbles, { x: 0 })
+      gsap.fromTo(
+        animationStateRef.current.bubbles,
+        { y: 0 },
+        {
+          y: -bubblesConfig.animationHeight,
+          duration: bubblesConfig.duration,
+          repeat: -1,
+          ease: 'none',
+        }
+      )
+
       gsap.to(animationStateRef.current.bubbles, {
         opacity: bubblesConfig.opacity,
         duration: stageConfig.transitionDuration,
@@ -372,21 +387,66 @@ function CanvasApp({ onStageChange }: CanvasAppProps) {
       })
     }
 
+    const animateToStage2 = () => {
+      // Animate human2 to stage 2 position
+      if (human2Config.stage2) {
+        gsap.to(animationStateRef.current.human2, {
+          rotation: human2Config.stage2.rotation || 0,
+          y: human2Config.stage2.y,
+          x: human2Config.stage2.x,
+          scale: human2Config.stage2.scale || 1,
+          duration: human2Config.stage2.duration,
+          delay: human2Config.stage2.delay,
+          ease: stageConfig.transitionEase,
+        })
+      }
+
+      // Stop vertical bubble animation and start horizontal
+      gsap.killTweensOf(animationStateRef.current.bubbles)
+      gsap.set(animationStateRef.current.bubbles, { y: 0 })
+
+      // Animate bubbles horizontally (right to left)
+      gsap.fromTo(
+        animationStateRef.current.bubbles,
+        { x: canvas.width },
+        {
+          x: -canvas.width,
+          duration: bubblesConfig.duration,
+          repeat: -1,
+          ease: 'none',
+        }
+      )
+
+      // Hide title in stage 2
+      gsap.to(animationStateRef.current.title, {
+        opacity: 0,
+        duration: stageConfig.transitionDuration,
+        ease: stageConfig.transitionEase,
+      })
+    }
+
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault()
 
       scrollAmount.current += e.deltaY * 0.5
       scrollAmount.current = Math.max(0, Math.min(scrollAmount.current, stageConfig.maxScroll))
 
-      const newStage = scrollAmount.current < stageConfig.scrollThreshold ? 0 : 1
+      let newStage = 0
+      if (scrollAmount.current >= stageConfig.stage2Threshold) {
+        newStage = 2
+      } else if (scrollAmount.current >= stageConfig.scrollThreshold) {
+        newStage = 1
+      }
 
       if (newStage !== currentStage.current) {
         currentStage.current = newStage
         onStageChange?.(newStage)
         if (newStage === 0) {
           animateToStage0()
-        } else {
+        } else if (newStage === 1) {
           animateToStage1()
+        } else {
+          animateToStage2()
         }
       }
     }
